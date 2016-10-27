@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns0="http://www.fiap.com.br"
+            targetNamespace="http://www.fiap.com.br" elementFormDefault="qualified">
+  <xsd:element name="CidadaoTO">
+    <xsd:annotation>
+      <xsd:documentation>A sample element</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="nomeCidadao" type="xsd:string"/>
+        <xsd:element name="telefone" type="xsd:string"/>
+        <xsd:element name="email" type="xsd:string"/>
+        <xsd:element name="observacoes" type="xsd:string"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>
