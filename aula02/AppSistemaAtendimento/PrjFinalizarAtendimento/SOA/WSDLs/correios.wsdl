@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+    
+     targetNamespace="http://www.fiap.com.br/mba/scj/correios"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:sch="http://www.fiap.com.br/mba/scj/correios"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+     xmlns:tns="http://www.fiap.com.br/mba/scj/correios"
+    >
+    <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.fiap.com.br/mba/scj/correios">
+            <xs:element name="registrarDocumentoParaEnvioRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="endereco" type="xs:string"/>
+                        <xs:element name="nomeDestinatario" type="xs:string"/>
+                        <xs:element name="tipoDocumento" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="registrarDocumentoParaEnvioResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="codigoRastreio" type="xs:integer"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="registrarDocumentoParaEnvioRequest">
+        <wsdl:part name="registrarDocumentoParaEnvioRequest" element="sch:registrarDocumentoParaEnvioRequest"/>
+    </wsdl:message>
+    <wsdl:message name="registrarDocumentoParaEnvioResponse">
+        <wsdl:part name="registrarDocumentoParaEnvioResponse" element="sch:registrarDocumentoParaEnvioResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="CorreiosPort">
+        <wsdl:operation name="registrarDocumentoParaEnvio">
+            <wsdl:input name="registrarDocumentoParaEnvioRequest" message="sch:registrarDocumentoParaEnvioRequest"/>
+            <wsdl:output name="registrarDocumentoParaEnvioResponse" message="sch:registrarDocumentoParaEnvioResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="CorreiosPortSoap11" type="sch:CorreiosPort">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="registrarDocumentoParaEnvio">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="registrarDocumentoParaEnvioRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="registrarDocumentoParaEnvioResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="CorreiosPortService">
+        <wsdl:port name="CorreiosPortSoap11" binding="sch:CorreiosPortSoap11">
+            <soap:address location="http://localhost:8060/ws"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

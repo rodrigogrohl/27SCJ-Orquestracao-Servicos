@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+    
+     targetNamespace="http://www.fiap.com.br/mba/scj/avaliacao"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:sch="http://www.fiap.com.br/mba/scj/avaliacao"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+     xmlns:tns="http://www.fiap.com.br/mba/scj/avaliacao"
+    >
+    <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.fiap.com.br/mba/scj/avaliacao">
+            <xs:element name="registrarAvaliacaoRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="dataInicio" type="xs:dateTime"/>
+                        <xs:element name="dataFim" type="xs:dateTime"/>
+                        <xs:element name="avaliacao" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="registrarAvaliacaoRequest">
+        <wsdl:part name="registrarAvaliacaoRequest" element="sch:registrarAvaliacaoRequest"/>
+    </wsdl:message>
+    <wsdl:portType name="AvaliacaoPort">
+        <wsdl:operation name="registrarAvaliacao">
+            <wsdl:input name="registrarAvaliacaoRequest" message="sch:registrarAvaliacaoRequest"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="AvaliacaoPortSoap11" type="sch:AvaliacaoPort">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="registrarAvaliacao">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="registrarAvaliacaoRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="AvaliacaoPortService">
+        <wsdl:port name="AvaliacaoPortSoap11" binding="sch:AvaliacaoPortSoap11">
+            <soap:address location="http://localhost:8070/ws"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

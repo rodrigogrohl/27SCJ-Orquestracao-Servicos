@@ -1,0 +1,13 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Faults>
+   <Fault>
+      <severity>error</severity>
+      <loc/>
+      <line>108</line>
+      <col/>
+      <file>BPEL/BPELProcess_FinalizarAtendimento.bpel</file>
+      <name>BPEL/BPELProcess_FinalizarAtendimento.bpel</name>
+      <fix/>
+      <msg>Element not completed: 'assign'</msg>
+   </Fault>
+</Faults>

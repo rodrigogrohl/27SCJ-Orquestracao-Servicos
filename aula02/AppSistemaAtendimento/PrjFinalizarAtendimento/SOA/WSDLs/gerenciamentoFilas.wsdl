@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+    
+     targetNamespace="http://www.fiap.com.br/mba/scj/gerenciamento_filas"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:sch="http://www.fiap.com.br/mba/scj/gerenciamento_filas"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+     xmlns:tns="http://www.fiap.com.br/mba/scj/gerenciamento_filas"
+    >
+    <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.fiap.com.br/mba/scj/gerenciamento_filas">
+            <xs:element name="gerarSenhaRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="fila" type="xs:string"/>
+                        <xs:element name="nomeCidadao" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="gerarSenhaResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="codigo" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="proximaSenhaRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="fila" type="xs:string"/>
+                        <xs:element name="numeroPontoAtd" type="xs:integer"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="proximaSenhaResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="codigo" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="iniciarAtendimentoRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="codigoSenha" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="iniciarAtendimentoResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="identificador" type="xs:integer"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="finalizarAtendimentoRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="idAtendimento" type="xs:integer"/>
+                        <xs:element name="servico" type="xs:string"/>
+                        <xs:element name="avaliacao" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="finalizarAtendimentoResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="idAtendimento" type="xs:integer"/>
+                        <xs:element name="dataInicio" type="xs:dateTime"/>
+                        <xs:element name="dataFim" type="xs:dateTime"/>
+                        <xs:element name="servico" type="xs:string"/>
+                        <xs:element name="avaliacao" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="iniciarAtendimentoRequest">
+        <wsdl:part name="iniciarAtendimentoRequest" element="sch:iniciarAtendimentoRequest"/>
+    </wsdl:message>
+    <wsdl:message name="iniciarAtendimentoResponse">
+        <wsdl:part name="iniciarAtendimentoResponse" element="sch:iniciarAtendimentoResponse"/>
+    </wsdl:message>
+    <wsdl:message name="gerarSenhaRequest">
+        <wsdl:part name="gerarSenhaRequest" element="sch:gerarSenhaRequest"/>
+    </wsdl:message>
+    <wsdl:message name="gerarSenhaResponse">
+        <wsdl:part name="gerarSenhaResponse" element="sch:gerarSenhaResponse"/>
+    </wsdl:message>
+    <wsdl:message name="proximaSenhaRequest">
+        <wsdl:part name="proximaSenhaRequest" element="sch:proximaSenhaRequest"/>
+    </wsdl:message>
+    <wsdl:message name="proximaSenhaResponse">
+        <wsdl:part name="proximaSenhaResponse" element="sch:proximaSenhaResponse"/>
+    </wsdl:message>
+    <wsdl:message name="finalizarAtendimentoRequest">
+        <wsdl:part name="finalizarAtendimentoRequest" element="sch:finalizarAtendimentoRequest"/>
+    </wsdl:message>
+    <wsdl:message name="finalizarAtendimentoResponse">
+        <wsdl:part name="finalizarAtendimentoResponse" element="sch:finalizarAtendimentoResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="GerenciamentoFilasPort">
+        <wsdl:operation name="iniciarAtendimento">
+            <wsdl:input name="iniciarAtendimentoRequest" message="sch:iniciarAtendimentoRequest"/>
+            <wsdl:output name="iniciarAtendimentoResponse" message="sch:iniciarAtendimentoResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="gerarSenha">
+            <wsdl:input name="gerarSenhaRequest" message="sch:gerarSenhaRequest"/>
+            <wsdl:output name="gerarSenhaResponse" message="sch:gerarSenhaResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="proximaSenha">
+            <wsdl:input name="proximaSenhaRequest" message="sch:proximaSenhaRequest"/>
+            <wsdl:output name="proximaSenhaResponse" message="sch:proximaSenhaResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="finalizarAtendimento">
+            <wsdl:input name="finalizarAtendimentoRequest" message="sch:finalizarAtendimentoRequest"/>
+            <wsdl:output name="finalizarAtendimentoResponse" message="sch:finalizarAtendimentoResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="GerenciamentoFilasPortSoap11" type="sch:GerenciamentoFilasPort">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="iniciarAtendimento">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="iniciarAtendimentoRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="iniciarAtendimentoResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="gerarSenha">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="gerarSenhaRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="gerarSenhaResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="proximaSenha">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="proximaSenhaRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="proximaSenhaResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="finalizarAtendimento">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="finalizarAtendimentoRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="finalizarAtendimentoResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="GerenciamentoFilasPortService">
+        <wsdl:port name="GerenciamentoFilasPortSoap11" binding="sch:GerenciamentoFilasPortSoap11">
+            <soap:address location="http://localhost:8090/ws"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dgm:gDiagram xmlns:dgm="http://xmlns.oracle.com/sca/soadgm">
+    <dgm:gService name="bpelprocess_finalizaratendimento_client_ep">
+        <dgm:body borderWidth="2" arcRad="20" X="21" Y="163" width="137" height="96">
+            <dgm:borderColor r="153" g="153" b="153"/>
+            <dgm:bgColor r="255" g="255" b="255"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="11" Y="156" width="156" height="110">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:outputPort name="bpelprocess_finalizaratendimento_client_ep" X="127" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/Application1/PrjFinalizarAtendimento/BPELProcess_FinalizarAtendimento#wsdl.interface(BPELProcess_FinalizarAtendimento)" callbackInterface="http://xmlns.oracle.com/Application1/PrjFinalizarAtendimento/BPELProcess_FinalizarAtendimento#wsdl.interface(BPELProcess_FinalizarAtendimentoCallback)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/adapters/designtime/adapter/images/soap_service_20x20.png" X="20" Y="4" width="20" height="20"/>
+        <dgm:operations>
+            <dgm:item>process</dgm:item>
+            <dgm:item>processResponse</dgm:item>
+        </dgm:operations>
+    </dgm:gService>
+    <dgm:gReference name="SOAPReference_GerenciamentoFilas">
+        <dgm:body borderWidth="2" arcRad="20" X="626" Y="144" width="136" height="120">
+            <dgm:borderColor r="153" g="153" b="153"/>
+            <dgm:bgColor r="255" g="255" b="255"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="616" Y="137" width="156" height="134">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:inputPort name="SOAPReference_GerenciamentoFilas" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://www.fiap.com.br/mba/scj/gerenciamento_filas#wsdl.interface(GerenciamentoFilasPort)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/adapters/designtime/adapter/images/soap_service_20x20.png" X="27" Y="4" width="20" height="20"/>
+        <dgm:operations>
+            <dgm:item>iniciarAtendimento</dgm:item>
+            <dgm:item>gerarSenha</dgm:item>
+            <dgm:item>proximaSenha</dgm:item>
+            <dgm:item>finalizarAtendimento</dgm:item>
+        </dgm:operations>
+    </dgm:gReference>
+    <dgm:gReference name="SOAPReference_Avaliacao">
+        <dgm:body borderWidth="2" arcRad="20" X="626" Y="26" width="136" height="84">
+            <dgm:borderColor r="153" g="153" b="153"/>
+            <dgm:bgColor r="255" g="255" b="255"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="616" Y="19" width="156" height="98">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:inputPort name="SOAPReference_Avaliacao" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://www.fiap.com.br/mba/scj/avaliacao#wsdl.interface(AvaliacaoPort)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/adapters/designtime/adapter/images/soap_service_20x20.png" X="27" Y="4" width="20" height="20"/>
+        <dgm:operations>
+            <dgm:item>registrarAvaliacao</dgm:item>
+        </dgm:operations>
+    </dgm:gReference>
+    <dgm:gReference name="SOAPReference_Correios">
+        <dgm:body borderWidth="2" arcRad="20" X="626" Y="298" width="136" height="84">
+            <dgm:borderColor r="153" g="153" b="153"/>
+            <dgm:bgColor r="255" g="255" b="255"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="616" Y="291" width="156" height="98">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:inputPort name="SOAPReference_Correios" X="-10" Y="0" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://www.fiap.com.br/mba/scj/correios#wsdl.interface(CorreiosPort)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/adapters/designtime/adapter/images/soap_service_20x20.png" X="27" Y="4" width="20" height="20"/>
+        <dgm:operations>
+            <dgm:item>registrarDocumentoParaEnvio</dgm:item>
+        </dgm:operations>
+    </dgm:gReference>
+    <dgm:gComponent name="BPELProcess_FinalizarAtendimento">
+        <dgm:body borderWidth="2" arcRad="20" X="327" Y="148" width="130" height="111">
+            <dgm:borderColor r="69" g="113" b="140"/>
+            <dgm:lightBgColor r="166" g="208" b="230"/>
+            <dgm:darkBgColor r="99" g="162" b="201"/>
+        </dgm:body>
+        <dgm:shadow arcRad="20" X="317" Y="141" width="150" height="127">
+            <dgm:bgColor r="196" g="228" b="240"/>
+        </dgm:shadow>
+        <dgm:inputPort name="bpelprocess_finalizaratendimento_client" X="-10" Y="15" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://xmlns.oracle.com/Application1/PrjFinalizarAtendimento/BPELProcess_FinalizarAtendimento#wsdl.interface(BPELProcess_FinalizarAtendimento)" callbackInterface="http://xmlns.oracle.com/Application1/PrjFinalizarAtendimento/BPELProcess_FinalizarAtendimento#wsdl.interface(BPELProcess_FinalizarAtendimentoCallback)"/>
+        <dgm:outputPort name="SOAPReference_Avaliacao" X="120" Y="15" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://www.fiap.com.br/mba/scj/avaliacao#wsdl.interface(AvaliacaoPort)"/>
+        <dgm:outputPort name="SOAPReference_GerenciamentoFilas" X="120" Y="40" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://www.fiap.com.br/mba/scj/gerenciamento_filas#wsdl.interface(GerenciamentoFilasPort)"/>
+        <dgm:outputPort name="SOAPReference_Correios" X="120" Y="65" diameter="20" imageURI="oracle/tip/tools/ide/fabric/resource/image/visuals_rd1/servicereference.png" interface="http://www.fiap.com.br/mba/scj/correios#wsdl.interface(CorreiosPort)"/>
+        <dgm:nodeIcon URI="/oracle/tip/tools/ide/bpel/shared/plugins/resources/images/soa/process_20x20.png" X="10" Y="4" width="20" height="20"/>
+    </dgm:gComponent>
+    <dgm:gWireLink source="bpelprocess_finalizaratendimento_client_ep" target="BPELProcess_FinalizarAtendimento/bpelprocess_finalizaratendimento_client" width="2">
+        <dgm:gSegment X1="168" Y1="173" X2="317" Y2="173"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+    <dgm:gWireLink source="BPELProcess_FinalizarAtendimento/SOAPReference_Avaliacao" target="SOAPReference_Avaliacao" width="2">
+        <dgm:gSegment X1="467" Y1="173" X2="491" Y2="173"/>
+        <dgm:gSegment X1="491" Y1="173" X2="491" Y2="36"/>
+        <dgm:gSegment X1="491" Y1="36" X2="616" Y2="36"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+    <dgm:gWireLink source="BPELProcess_FinalizarAtendimento/SOAPReference_GerenciamentoFilas" target="SOAPReference_GerenciamentoFilas" width="2">
+        <dgm:gSegment X1="467" Y1="198" X2="506" Y2="198"/>
+        <dgm:gSegment X1="506" Y1="198" X2="506" Y2="154"/>
+        <dgm:gSegment X1="506" Y1="154" X2="616" Y2="154"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+    <dgm:gWireLink source="BPELProcess_FinalizarAtendimento/SOAPReference_Correios" target="SOAPReference_Correios" width="2">
+        <dgm:gSegment X1="467" Y1="223" X2="491" Y2="223"/>
+        <dgm:gSegment X1="491" Y1="223" X2="491" Y2="308"/>
+        <dgm:gSegment X1="491" Y1="308" X2="616" Y2="308"/>
+        <dgm:baseColor r="153" g="153" b="153"/>
+        <dgm:selectedColor r="49" g="106" b="196"/>
+    </dgm:gWireLink>
+</dgm:gDiagram>

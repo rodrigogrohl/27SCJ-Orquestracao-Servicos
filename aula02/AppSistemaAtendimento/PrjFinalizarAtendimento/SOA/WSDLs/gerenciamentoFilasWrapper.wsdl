@@ -1,0 +1,15 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<wsdl:definitions
+    
+     targetNamespace="http://www.fiap.com.br/mba/scj/gerenciamento_filas"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     xmlns:bpws="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+     xmlns:sch="http://www.fiap.com.br/mba/scj/gerenciamento_filas"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    >
+    <plnk:partnerLinkType name="SOAPReference_GerenciamentoFilas">
+        <plnk:role name="GerenciamentoFilasPort" portType="sch:GerenciamentoFilasPort"/>
+    </plnk:partnerLinkType>
+    <wsdl:import namespace="http://www.fiap.com.br/mba/scj/gerenciamento_filas" location="gerenciamentoFilas.wsdl"/>
+</wsdl:definitions>

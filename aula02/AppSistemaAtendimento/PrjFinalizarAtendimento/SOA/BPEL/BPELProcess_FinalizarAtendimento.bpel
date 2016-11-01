@@ -1,0 +1,135 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Mon Oct 31 20:33:03 BRST 2016
+  Author:  rm48236
+  Type: BPEL 2.0 Process
+  Purpose: Asynchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="BPELProcess_FinalizarAtendimento"
+         targetNamespace="http://xmlns.oracle.com/Application1/PrjFinalizarAtendimento/BPELProcess_FinalizarAtendimento"
+         xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:client="http://xmlns.oracle.com/Application1/PrjFinalizarAtendimento/BPELProcess_FinalizarAtendimento"
+         xmlns:ora="http://schemas.oracle.com/xpath/extension"
+         xmlns:ui="http://xmlns.oracle.com/soa/designer"
+         xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://www.fiap.com.br/mba/scj/avaliacao"
+         xmlns:ns2="http://www.fiap.com.br/mba/scj/gerenciamento_filas" xmlns:ns3="http://www.fiap.com.br"
+         xmlns:ns4="http://www.fiap.com.br/mba/scj/correios">
+
+    <import ui:processWSDL="true" namespace="http://xmlns.oracle.com/Application1/PrjFinalizarAtendimento/BPELProcess_FinalizarAtendimento" location="../WSDLs/BPELProcess_FinalizarAtendimento.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    --> 
+    <partnerLinks>
+        <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+        <partnerLink name="bpelprocess_finalizaratendimento_client" partnerLinkType="client:BPELProcess_FinalizarAtendimento" myRole="BPELProcess_FinalizarAtendimentoProvider" partnerRole="BPELProcess_FinalizarAtendimentoRequester"/>
+        <partnerLink name="SOAPReference_Avaliacao" partnerLinkType="ns1:SOAPReference_Avaliacao"
+                     partnerRole="AvaliacaoPort"/>
+        <partnerLink name="SOAPReference_GerenciamentoFilas" partnerLinkType="ns2:SOAPReference_GerenciamentoFilas"
+                     partnerRole="GerenciamentoFilasPort"/>
+        <partnerLink name="SOAPReference_Correios" partnerLinkType="ns4:SOAPReference_Correios"
+                     partnerRole="CorreiosPort"/>
+    </partnerLinks>
+
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        VARIABLES                                                        
+        List of messages and XML documents used within this BPEL process 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    -->
+    <variables>
+        <!-- Reference to the message passed as input during initiation -->
+        <variable name="inputVariable" messageType="client:BPELProcess_FinalizarAtendimentoRequestMessage"/>
+
+        <!-- Reference to the message that will be sent back to the requester during callback -->
+        <variable name="outputVariable" messageType="client:BPELProcess_FinalizarAtendimentoResponseMessage"/>
+        <variable name="InvokeGerenciamentoFilas_finalizarAtendimento_InputVariable"
+                  messageType="ns2:finalizarAtendimentoRequest"/>
+        <variable name="InvokeGerenciamentoFilas_finalizarAtendimento_OutputVariable"
+                  messageType="ns2:finalizarAtendimentoResponse"/>
+        <variable name="InvokeAvaliacao_registrarAvaliacao_InputVariable" messageType="ns1:registrarAvaliacaoRequest"/>
+        <variable name="InvokeCorreios_registrarDocumentoParaEnvio_InputVariable"
+                  messageType="ns4:registrarDocumentoParaEnvioRequest"/>
+        <variable name="InvokeCorreios_registrarDocumentoParaEnvio_OutputVariable"
+                  messageType="ns4:registrarDocumentoParaEnvioResponse"/>
+    </variables>
+
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+       ORCHESTRATION LOGIC                                               
+       Set of activities coordinating the flow of messages across the    
+       services integrated within this business process                  
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    -->
+    <sequence name="main">
+        <!-- Receive input from requestor. (Note: This maps to operation defined in BPELProcess_FinalizarAtendimento.wsdl) -->
+        <receive name="receiveInput" partnerLink="bpelprocess_finalizaratendimento_client" portType="client:BPELProcess_FinalizarAtendimento" operation="process" variable="inputVariable" createInstance="yes"/>
+        <assign name="Assign1">
+            <copy>
+                <from>$inputVariable.payload/ns3:idAtendimento</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$inputVariable.payload/ns3:idAtendimento</to>
+            </copy>
+            <copy>
+                <from>$inputVariable.payload/ns3:servico</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$inputVariable.payload/ns3:servico</to>
+            </copy>
+            <copy>
+                <from>$inputVariable.payload/ns3:avaliacao</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$inputVariable.payload/ns3:avaliacao</to>
+            </copy>
+        </assign>
+        <invoke name="InvokeGerenciamentoFilas"
+                partnerLink="SOAPReference_GerenciamentoFilas" portType="ns2:GerenciamentoFilasPort"
+                operation="finalizarAtendimento"
+                inputVariable="InvokeGerenciamentoFilas_finalizarAtendimento_InputVariable"
+                outputVariable="InvokeGerenciamentoFilas_finalizarAtendimento_OutputVariable"
+                bpelx:invokeAsDetail="no"/>
+        <assign name="Assign2">
+            <copy>
+                <from>$InvokeGerenciamentoFilas_finalizarAtendimento_OutputVariable.finalizarAtendimentoResponse/ns2:dataInicio</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeAvaliacao_registrarAvaliacao_InputVariable.registrarAvaliacaoRequest/ns1:dataInicio</to>
+            </copy>
+            <copy>
+                <from>$InvokeGerenciamentoFilas_finalizarAtendimento_OutputVariable.finalizarAtendimentoResponse/ns2:dataFim</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeAvaliacao_registrarAvaliacao_InputVariable.registrarAvaliacaoRequest/ns1:dataFim</to>
+            </copy>
+        </assign>
+        <invoke name="InvokeAvaliacao" bpelx:invokeAsDetail="no" partnerLink="SOAPReference_Avaliacao"
+                portType="ns1:AvaliacaoPort" operation="registrarAvaliacao"
+                inputVariable="InvokeAvaliacao_registrarAvaliacao_InputVariable"/>
+        <assign name="Assign3">
+            <copy>
+                <from>$inputVariable.payload/ns3:servico</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeCorreios_registrarDocumentoParaEnvio_InputVariable.registrarDocumentoParaEnvioRequest/ns4:endereco</to>
+            </copy>
+            <copy>
+                <from>$inputVariable.payload/ns3:avaliacao</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeCorreios_registrarDocumentoParaEnvio_InputVariable.registrarDocumentoParaEnvioRequest/ns4:nomeDestinatario</to>
+            </copy>
+            <copy>
+                <from>$InvokeGerenciamentoFilas_finalizarAtendimento_InputVariable.finalizarAtendimentoRequest/ns2:servico</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeCorreios_registrarDocumentoParaEnvio_InputVariable.registrarDocumentoParaEnvioRequest/ns4:tipoDocumento</to>
+            </copy>
+        </assign>
+        <invoke name="InvokeCorreios" partnerLink="SOAPReference_Correios"
+                portType="ns4:CorreiosPort" operation="registrarDocumentoParaEnvio"
+                inputVariable="InvokeCorreios_registrarDocumentoParaEnvio_InputVariable"
+                outputVariable="InvokeCorreios_registrarDocumentoParaEnvio_OutputVariable" bpelx:invokeAsDetail="no"/>
+        <!-- 
+          Asynchronous callback to the requester. (Note: the callback location and correlation id is transparently handled using WS-addressing.)
+        -->
+        <invoke name="callbackClient" partnerLink="bpelprocess_finalizaratendimento_client" portType="client:BPELProcess_FinalizarAtendimentoCallback" operation="processResponse" inputVariable="outputVariable"/>
+    </sequence>
+</process>
